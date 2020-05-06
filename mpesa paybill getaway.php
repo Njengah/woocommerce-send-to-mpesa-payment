@@ -20,6 +20,7 @@ add_action('plugins_loaded', 'init_send_to_mpesa_gateway_class');
 function init_send_to_mpesa_gateway_class()
 {
 
+    // Move this class to the admin 
     class WC_Gateway_Send_To_Mpesa extends WC_Payment_Gateway
     {
 
@@ -147,7 +148,7 @@ function init_send_to_mpesa_gateway_class()
            }
 
 ?>
-<!--- This will go to frontend views --->
+<!--- This will go to frontend views  and will be pulled from admin class --->
             <div id="send_to_mpesa_confirmation_details">
 
                 <p class="form-row form-row-wide">
@@ -206,6 +207,8 @@ function init_send_to_mpesa_gateway_class()
     }
 }
 
+// This remains in the base class or moves to the loader 
+
 add_filter('woocommerce_payment_gateways', 'add_send_to_mpesa_gateway_class');
 function add_send_to_mpesa_gateway_class($methods)
 {
@@ -219,6 +222,9 @@ function process_send_to_mpesa_payment()
 
     if ($_POST['payment_method'] != 'send_to_mpesa_')
         return;
+
+    if (!isset($_POST['customer']) || empty($_POST['customer']))
+    wc_add_notice(__('Please add your Mpesa name', $this->domain), 'error');
 
     if (!isset($_POST['mobile']) || empty($_POST['mobile']))
         wc_add_notice(__('Please add your mobile number', $this->domain), 'error');
@@ -238,11 +244,7 @@ function send_to_mpesa_payment_update_order_meta($order_id)
     if ($_POST['payment_method'] != 'send_to_mpesa_')
         return;
 
-     echo "<pre>";
-     print_r($_POST);
-     echo "</pre>";
-    // exit();
-
+    update_post_meta($order_id, 'customer ', $_POST['customer']);
     update_post_meta($order_id, 'mobile', $_POST['mobile']);
     update_post_meta($order_id, 'transaction', $_POST['transaction']);
 }
