@@ -1,12 +1,16 @@
 <?php
 /*
-*Plugin Name: Mpesa PayBill Payment 
-*Description: Display Mpesa Paybill on Woocommerce 
-*Author: Joe Njenga
-*Author URI: http://njengah.com
-*Version:		1.0.1
-
-*/
+ * Plugin Name:       WooCommerce Send to Mpesa Payment
+ * Plugin URI:        https://njengah.com/plugins/
+ * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Version:           1.0.0
+ * Author:            Joe Njenga
+ * Author URI:        https://njengah.com
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       send-to-mpesa-payment
+ * Domain Path:       /languages
+ */
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -139,41 +143,7 @@ function init_send_to_mpesa_gateway_class()
 
         public function payment_fields()
         {
-
-            if ($description = $this->get_description()) {
-                echo wpautop(wptexturize($description));
-            }
-           if (isset($this->mpesa_name)) {
-                echo  wpautop(wptexturize("Mpesa Name : " . $this->mpesa_name));
-           }
-
-?>
-<!--- This will go to frontend views  and will be pulled from admin class --->
-            <div id="send_to_mpesa_confirmation_details">
-
-                <p class="form-row form-row-wide">
-
-                    <p class="send-mpesa-confirmation-title">
-                         Confirm Payment Details 
-                    </p>
-
-                    <p class="form-row form-row-wide">
-                        <label for="customer" class=""><?php _e('Mpesa Payment Name', $this->domain); ?></label>
-                        <input type="text" class="mpesa-confirm-input" name="customer" id="customer" placeholder="Enter your Mpesa Name" value="">
-                    </p>
-                   
-                    <p class="form-row form-row-wide">
-                        <label for="mobile" class=""><?php _e('Mobile Phone Number', $this->domain); ?></label>
-                        <input type="text" class="mpesa-confirm-input" name="mobile" id="mobile" placeholder="Enter your mobile number" value="">
-                    </p>
-
-                    <p class="form-row form-row-wide">
-                        <label for="transaction" class=""><?php _e('Mpesa Transaction Code', $this->domain); ?></label>
-                        <input type="text" class="mpesa-confirm-input" name="transaction" id="transaction" placeholder="Enter the transaction code" value="">
-                    </p>
-                </p>
-            </div>
-<?php
+          include __DIR__ . '/views/frontend.php';
         }
 
         /**
@@ -206,8 +176,6 @@ function init_send_to_mpesa_gateway_class()
         }
     }
 }
-
-// This remains in the base class or moves to the loader 
 
 add_filter('woocommerce_payment_gateways', 'add_send_to_mpesa_gateway_class');
 function add_send_to_mpesa_gateway_class($methods)
@@ -265,10 +233,6 @@ function send_to_mpesa_checkout_field_display_admin_order_meta($order)
     echo '<p><strong>' . __('Mobile Number') . ':</strong> ' . $mobile . '</p>';
     echo '<p><strong>' . __('Mpesa Transaction ID') . ':</strong> ' . $transaction . '</p>';
 }
-
-
-
-
 
 /** Add Custom Icon For Cash On Delivery
 **/ 
