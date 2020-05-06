@@ -46,6 +46,7 @@ function init_send_to_mpesa_gateway_class()
             // Define user set variables
             $this->title        = $this->get_option('title');
             $this->description  = $this->get_option('description');
+            $this->mpesa_name   = $this->get_option('mpesa_name');
             $this->instructions = $this->get_option('instructions', $this->description);
             $this->order_status = $this->get_option('order_status', 'completed');
 
@@ -141,22 +142,34 @@ function init_send_to_mpesa_gateway_class()
             if ($description = $this->get_description()) {
                 echo wpautop(wptexturize($description));
             }
+           if (isset($this->mpesa_name)) {
+                echo  wpautop(wptexturize("Mpesa Name : " . $this->mpesa_name));
+           }
 
 ?>
-            <div id="send_to_mpesa_input">
+<!--- This will go to frontend views --->
+            <div id="send_to_mpesa_confirmation_details">
+
                 <p class="form-row form-row-wide">
 
-                    <?php echo '<img src="' . plugins_url('img/mpesa.png', __FILE__) . '" > '; ?>
+                    <p class="send-mpesa-confirmation-title">
+                         Confirm Payment Details 
+                    </p>
 
-                    <p> Merchant : Online Carpet Center</p>
-                    <p> Till Number : 976827 </p>
-                    <p style="color:#000000; border-bottom: solid 1px #999; font-size:16px;"> <b> Confirm Payment Details </b></p>
-                    <label for="mobile" class=""><?php _e('Mobile Number', $this->domain); ?></label>
-                    <input type="text" class="" name="mobile" id="mobile" placeholder="" value="">
-                </p>
-                <p class="form-row form-row-wide">
-                    <label for="transaction" class=""><?php _e('Mpesa Transaction ID', $this->domain); ?></label>
-                    <input type="text" class="" name="transaction" id="transaction" placeholder="" value="">
+                    <p class="form-row form-row-wide">
+                        <label for="customer" class=""><?php _e('Mpesa Payment Name', $this->domain); ?></label>
+                        <input type="text" class="mpesa-confirm-input" name="customer" id="customer" placeholder="Enter your Mpesa Name" value="">
+                    </p>
+                   
+                    <p class="form-row form-row-wide">
+                        <label for="mobile" class=""><?php _e('Mobile Phone Number', $this->domain); ?></label>
+                        <input type="text" class="mpesa-confirm-input" name="mobile" id="mobile" placeholder="Enter your mobile number" value="">
+                    </p>
+
+                    <p class="form-row form-row-wide">
+                        <label for="transaction" class=""><?php _e('Mpesa Transaction Code', $this->domain); ?></label>
+                        <input type="text" class="mpesa-confirm-input" name="transaction" id="transaction" placeholder="Enter the transaction code" value="">
+                    </p>
                 </p>
             </div>
 <?php
@@ -212,7 +225,7 @@ function process_send_to_mpesa_payment()
 
 
     if (!isset($_POST['transaction']) || empty($_POST['transaction']))
-        wc_add_notice(__('Please add your transaction ID', $this->domain), 'error');
+        wc_add_notice(__('Please add your Mpesa transaction code', $this->domain), 'error');
 }
 
 /**
@@ -225,9 +238,9 @@ function send_to_mpesa_payment_update_order_meta($order_id)
     if ($_POST['payment_method'] != 'send_to_mpesa_')
         return;
 
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
+     echo "<pre>";
+     print_r($_POST);
+     echo "</pre>";
     // exit();
 
     update_post_meta($order_id, 'mobile', $_POST['mobile']);
@@ -250,3 +263,19 @@ function send_to_mpesa_checkout_field_display_admin_order_meta($order)
     echo '<p><strong>' . __('Mobile Number') . ':</strong> ' . $mobile . '</p>';
     echo '<p><strong>' . __('Mpesa Transaction ID') . ':</strong> ' . $transaction . '</p>';
 }
+
+
+
+
+
+/** Add Custom Icon For Cash On Delivery
+**/ 
+function send_to_mpesa_gateway_icon( $gateways ) {
+    if ( isset( $gateways['send_to_mpesa_'] ) ) {
+        $gateways['send_to_mpesa_']->icon = plugins_url( 'img/mpesa.png', __FILE__ );
+    }
+
+    return $gateways;
+}
+
+add_filter( 'woocommerce_available_payment_gateways', 'send_to_mpesa_gateway_icon' );
