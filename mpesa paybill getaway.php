@@ -16,11 +16,11 @@ if (!defined('ABSPATH')) {
  * Mpesa Paybill Payment Gateway.
  *
  */
-add_action('plugins_loaded', 'init_custom_gateway_class');  
-function init_custom_gateway_class()
+add_action('plugins_loaded', 'init_send_to_mpesa_gateway_class');  
+function init_send_to_mpesa_gateway_class()
 {
 
-    class WC_Gateway_Custom extends WC_Payment_Gateway
+    class WC_Gateway_Send_To_Mpesa extends WC_Payment_Gateway
     {
 
         public $domain;
@@ -31,13 +31,13 @@ function init_custom_gateway_class()
         public function __construct()
         {
 
-            $this->domain = 'custom_payment';
+            $this->domain = 'send_to_mpesa_payment';
 
-            $this->id                 = 'custom';
-            $this->icon               = apply_filters('woocommerce_custom_gateway_icon', '');
+            $this->id                 = 'send_to_mpesa_';
+            $this->icon               = apply_filters('woocommerce_send_to_mpesa_gateway_icon', '');
             $this->has_fields         = false;
-            $this->method_title       = __('Custom', $this->domain);
-            $this->method_description = __('Allows payments with mpesa gateway.', $this->domain);
+            $this->method_title       = __('Send to Mpesa', $this->domain);
+            $this->method_description = __('Allows customers to send payments to Mpesa phone number Example 0722 XXX XXX.', $this->domain);
 
             // Load the settings.
             $this->init_form_fields();
@@ -51,7 +51,7 @@ function init_custom_gateway_class()
 
             // Actions
             add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
-            add_action('woocommerce_thankyou_custom', array($this, 'thankyou_page'));
+            add_action('woocommerce_thankyou_send_to_mpesa_', array($this, 'thankyou_page'));
 
             // Customer Emails
             add_action('woocommerce_email_before_order_table', array($this, 'email_instructions'), 10, 3);
@@ -65,16 +65,16 @@ function init_custom_gateway_class()
 
             $this->form_fields = array(
                 'enabled' => array(
-                    'title'   => __('Enable/Disable', $this->domain),
+                    'title'   => __('Enable or Disable', $this->domain),
                     'type'    => 'checkbox',
-                    'label'   => __('Enable Mpesa Payment', $this->domain),
+                    'label'   => __('Enable Send Mpesa Payment', $this->domain),
                     'default' => 'yes'
                 ),
                 'title' => array(
-                    'title'       => __('Title', $this->domain),
+                    'title'       => __('Payment Title', $this->domain),
                     'type'        => 'text',
                     'description' => __('This controls the title which the user sees during checkout.', $this->domain),
-                    'default'     => __('Mpesa Payment', $this->domain),
+                    'default'     => __('Send to Mpesa', $this->domain),
                     'desc_tip'    => true,
                 ),
                 'order_status' => array(
@@ -93,6 +93,14 @@ function init_custom_gateway_class()
                     'default'     => __('Pay with Lipa na Mpesa', $this->domain),
                     'desc_tip'    => true,
                 ),
+                'mpesa_name' => array(
+                    'title'       => __('Mpesa Name', $this->domain),
+                    'type'        => 'text',
+                    'description' => __('Payment name that the customer will see on the mobile message to confirm.', $this->domain),
+                    //'default'     => __('Example: Joe Njenga', $this->domain),
+                    'desc_tip'    => true,
+                ),
+
                 'instructions' => array(
                     'title'       => __('Instructions', $this->domain),
                     'type'        => 'textarea',
@@ -122,7 +130,7 @@ function init_custom_gateway_class()
          */
         public function email_instructions($order, $sent_to_admin, $plain_text = false)
         {
-            if ($this->instructions && !$sent_to_admin && 'custom' === $order->payment_method && $order->has_status('on-hold')) {
+            if ($this->instructions && !$sent_to_admin && 'send_to_mpesa_' === $order->payment_method && $order->has_status('on-hold')) {
                 echo wpautop(wptexturize($this->instructions)) . PHP_EOL;
             }
         }
@@ -135,7 +143,7 @@ function init_custom_gateway_class()
             }
 
 ?>
-            <div id="custom_input">
+            <div id="send_to_mpesa_input">
                 <p class="form-row form-row-wide">
 
                     <?php echo '<img src="' . plugins_url('img/mpesa.png', __FILE__) . '" > '; ?>
@@ -185,18 +193,18 @@ function init_custom_gateway_class()
     }
 }
 
-add_filter('woocommerce_payment_gateways', 'add_custom_gateway_class');
-function add_custom_gateway_class($methods)
+add_filter('woocommerce_payment_gateways', 'add_send_to_mpesa_gateway_class');
+function add_send_to_mpesa_gateway_class($methods)
 {
-    $methods[] = 'WC_Gateway_Custom';
+    $methods[] = 'WC_Gateway_Send_To_Mpesa';
     return $methods;
 }
 
-add_action('woocommerce_checkout_process', 'process_custom_payment');
-function process_custom_payment()
+add_action('woocommerce_checkout_process', 'process_send_to_mpesa_payment');
+function process_send_to_mpesa_payment()
 {
 
-    if ($_POST['payment_method'] != 'custom')
+    if ($_POST['payment_method'] != 'send_to_mpesa_')
         return;
 
     if (!isset($_POST['mobile']) || empty($_POST['mobile']))
@@ -210,11 +218,11 @@ function process_custom_payment()
 /**
  * Update the order meta with field value
  */
-add_action('woocommerce_checkout_update_order_meta', 'custom_payment_update_order_meta');
-function custom_payment_update_order_meta($order_id)
+add_action('woocommerce_checkout_update_order_meta', 'send_to_mpesa_payment_update_order_meta');
+function send_to_mpesa_payment_update_order_meta($order_id)
 {
 
-    if ($_POST['payment_method'] != 'custom')
+    if ($_POST['payment_method'] != 'send_to_mpesa_')
         return;
 
     // echo "<pre>";
@@ -229,11 +237,11 @@ function custom_payment_update_order_meta($order_id)
 /**
  * Display field value on the order edit page
  */
-add_action('woocommerce_admin_order_data_after_billing_address', 'custom_checkout_field_display_admin_order_meta', 10, 1);
-function custom_checkout_field_display_admin_order_meta($order)
+add_action('woocommerce_admin_order_data_after_billing_address', 'send_to_mpesa_checkout_field_display_admin_order_meta', 10, 1);
+function send_to_mpesa_checkout_field_display_admin_order_meta($order)
 {
     $method = get_post_meta($order->id, '_payment_method', true);
-    if ($method != 'custom')
+    if ($method != 'send_to_mpesa_')
         return;
 
     $mobile = get_post_meta($order->id, 'mobile', true);
@@ -242,5 +250,3 @@ function custom_checkout_field_display_admin_order_meta($order)
     echo '<p><strong>' . __('Mobile Number') . ':</strong> ' . $mobile . '</p>';
     echo '<p><strong>' . __('Mpesa Transaction ID') . ':</strong> ' . $transaction . '</p>';
 }
-
-=
