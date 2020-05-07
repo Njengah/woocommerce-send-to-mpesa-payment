@@ -2,7 +2,7 @@
 /*
  * Plugin Name:       WooCommerce Send to Mpesa Payment
  * Plugin URI:        https://njengah.com/plugins/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This is a simple Mpesa WooCommerce payment gateway that allows customers to send the shop owner the payment on mobile phone number. Its useful for those vendors without the Safaricom Paybill or Till Number. 
  * Version:           1.0.0
  * Author:            Joe Njenga
  * Author URI:        https://njengah.com
@@ -36,7 +36,7 @@ function init_send_to_mpesa_gateway_class()
         public function __construct()
         {
 
-            $this->domain = 'send_to_mpesa_payment';
+            $this->domain = 'send-to-mpesa-payment';
 
             $this->id                 = 'send_to_mpesa_';
             $this->icon               = apply_filters('woocommerce_send_to_mpesa_gateway_icon', '');
