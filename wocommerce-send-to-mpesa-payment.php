@@ -96,11 +96,11 @@ function init_send_to_mpesa_gateway_class()
                     'title'       => __('Description', $this->domain),
                     'type'        => 'textarea',
                     'description' => __('Payment method description that the customer will see on your checkout.', $this->domain),
-                    'default'     => __('Pay with Lipa na Mpesa', $this->domain),
+                    'default'     => __('Pay by sending to Mpesa mobile number', $this->domain),
                     'desc_tip'    => true,
                 ),
                 'mpesa_name' => array(
-                    'title'       => __('Mpesa Name', $this->domain),
+                    'title'       => __('Mpesa Recipient Name', $this->domain),
                     'type'        => 'text',
                     'description' => __('Payment name that the customer will see on the mobile message to confirm.', $this->domain),
                     //'default'     => __('Example: Joe Njenga', $this->domain),

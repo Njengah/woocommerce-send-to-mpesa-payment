@@ -15,7 +15,7 @@ if ($description = $this->get_description()) {
     echo wpautop(wptexturize($description));
 }
 if (isset($this->mpesa_name)) {
-    echo  wpautop(wptexturize("Mpesa Name : " . $this->mpesa_name));
+    echo  wpautop(wptexturize("Mpesa Recipient Name : " . $this->mpesa_name));
 }
 
 ?>
@@ -27,22 +27,22 @@ if (isset($this->mpesa_name)) {
     <p class="form-row form-row-wide">
 
         <p class="send-mpesa-confirmation-title">
-                Confirm Payment Details 
+                Confirm Mpesa Payment Details 
         </p>
 
         <p class="form-row form-row-wide">
             <label for="customer" class=""><?php _e('Mpesa Payment Name', $this->domain); ?></label>
-            <input type="text" class="mpesa-confirm-input" name="customer" id="customer" placeholder="Enter your Mpesa Name" value="">
+            <input type="text" class="mpesa-confirm-input" name="customer" id="customer" placeholder="Enter your Mpesa Name" value="" required>
         </p>
         
         <p class="form-row form-row-wide">
             <label for="mobile" class=""><?php _e('Mobile Phone Number', $this->domain); ?></label>
-            <input type="text" class="mpesa-confirm-input" name="mobile" id="mobile" placeholder="Enter your mobile number" value="">
+            <input type="text" class="mpesa-confirm-input" name="mobile" id="mobile" placeholder="Enter your mobile number" value="" required>
         </p>
 
         <p class="form-row form-row-wide">
             <label for="transaction" class=""><?php _e('Mpesa Transaction Code', $this->domain); ?></label>
-            <input type="text" class="mpesa-confirm-input" name="transaction" id="transaction" placeholder="Enter the transaction code" value="">
+            <input type="text" class="mpesa-confirm-input" name="transaction" id="transaction" placeholder="Enter the transaction code" value="" required>
         </p>
     </p>
 
