@@ -10,6 +10,14 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       send-to-mpesa-payment
  * Domain Path:       /languages
+ * 
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
+ * General Public License version 2, as published by the Free Software Foundation. You may NOT assume
+ * that you can use any other version of the GPL.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * 
  */
 
 if (!defined('ABSPATH')) {
@@ -17,8 +25,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Mpesa Paybill Payment Gateway.
- *
+ * Send to Mpesa Payment Gateway.
  */
 add_action('plugins_loaded', 'init_send_to_mpesa_gateway_class');  
 
@@ -108,7 +115,6 @@ function init_send_to_mpesa_gateway_class()
                         'title'       => __('Mpesa Recipient Name', $this->domain),
                         'type'        => 'text',
                         'description' => __('Payment name that the customer will see on the mobile message to confirm.', $this->domain),
-                        //'default'     => __('Example: Joe Njenga', $this->domain),
                         'desc_tip'    => true,
                     ),
 
@@ -167,7 +173,7 @@ function init_send_to_mpesa_gateway_class()
                 $status = 'wc-' === substr($this->order_status, 0, 3) ? substr($this->order_status, 3) : $this->order_status;
 
                 // Set order status
-                $order->update_status($status, __('Checkout with Mpesa payment. ', $this->domain));
+                $order->update_status($status, __('Checkout with Send to Mpesa Payment. ', $this->domain));
 
                 // Reduce stock levels
                 $order->reduce_order_stock();
