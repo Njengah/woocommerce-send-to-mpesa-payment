@@ -35,7 +35,7 @@ function process_send_to_mpesa_payment()
     if ($_POST['payment_method'] != 'send_to_mpesa_'){
         return;
     }
-    if (!isset($_POST['customer']) || empty($_POST['customer'])){
+    if (!isset($_POST['mpesa_name']) || empty($_POST['mpesa_name'])){
        wc_add_notice('Please add your Mpesa name', 'error');
     }
     if (!isset($_POST['mobile']) || empty($_POST['mobile'])){
@@ -58,7 +58,7 @@ function send_to_mpesa_payment_update_order_meta($order_id)
     if ($_POST['payment_method'] != 'send_to_mpesa_')
         return;
 
-    update_post_meta($order_id, 'customer ', $_POST['customer']);
+    update_post_meta($order_id, 'mpesa_name', $_POST['mpesa_name']);
     update_post_meta($order_id, 'mobile', $_POST['mobile']);
     update_post_meta($order_id, 'transaction', $_POST['transaction']);
 }
@@ -74,11 +74,12 @@ function send_to_mpesa_checkout_field_display_admin_order_meta($order)
     if ($method != 'send_to_mpesa_')
         return;
 
-    $customer = get_post_meta($order->id, 'customer', true);
-    $mobile = get_post_meta($order->id, 'mobile', true);
-    $transaction = get_post_meta($order->id, 'transaction', true);
+    $mpesa_name   =  get_post_meta($order->id, 'mpesa_name', true);
+    $mobile       =  get_post_meta($order->id, 'mobile', true);
+    $transaction  =  get_post_meta($order->id, 'transaction', true);
 
-    echo '<p><strong>' . __('Mpesa Customer Name') . ':</strong> ' . $customer . '</p>';
+    print_r($senge ); 
+    echo '<p><strong>' . __('Mpesa Name') . ':</strong> ' . $mpesa_name . '</p>';
     echo '<p><strong>' . __('Mobile Number') . ':</strong> ' . $mobile . '</p>';
     echo '<p><strong>' . __('Mpesa Transaction Code') . ':</strong> ' . $transaction . '</p>';
 }

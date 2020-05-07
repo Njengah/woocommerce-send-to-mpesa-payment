@@ -31,8 +31,8 @@ if (isset($this->mpesa_name)) {
         </p>
 
         <p class="form-row form-row-wide">
-            <label for="customer" class=""><?php _e('Mpesa Payment Name', $this->domain); ?></label>
-            <input type="text" class="mpesa-confirm-input" name="customer" id="customer" placeholder="Enter your Mpesa Name" value="" required>
+            <label for="mpesa_name" class=""><?php _e('Mpesa Payment Name', $this->domain); ?></label>
+            <input type="text" class="mpesa-confirm-input" name="mpesa_name" id="mpesa_name" placeholder="Enter your Mpesa Name" value="" required>
         </p>
         
         <p class="form-row form-row-wide">
