@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * Enqueue both scripts and styles.
  */
