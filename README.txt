@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Woocommerce Send to Mpesa Payment ===
 Contributors: Njengah
 Donate link: https://njengah.com
 Tags: woocommerce, mpesa, woocommerce mpesa payment gateway, mpesa woocommmerce payment 
@@ -31,9 +31,9 @@ This are the instructions on how to install the plugin and get it working.
 
  Yes, this is a custom WooCommerce payment gateway that will not work without WooCommerce. 
 
-= Does it support Mpesa Till and Paybill APIs =
+= Does it support Mpesa Till and Paybill API ? =
 
-No this a plugin for direct payments by sending money from one customer number to the shop owner number. 
+No, this a plugin for direct payments by sending money from one customer number to the shop owner number. 
 
 == Screenshots ==
 
