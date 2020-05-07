@@ -17,7 +17,11 @@ A simple Mpesa WooCommerce payment gateway that allows customers to send the sho
 
 ### Description 
 
-Most WooCommerce users who want to recieve payment via Mpesa do not have the PayBill or Till number. This plugin is designed to allow such users to recieve  payment from customers who want to send the payment to the business or personal phone number. The checkout provides the three important fields (customer name, customer mobile number 
+Most WooCommerce users who want to recieve payment via Mpesa do not have the PayBill or Till number. 
+
+This plugin is designed to allow such users to recieve  payment from customers who want to send the payment to the business or personal phone number. 
+
+The checkout provides the three important fields (customer name, customer mobile number 
 and the Mpesa transaction code ) for confirmation of the payment.
 
 This plugin does not have the API verification capabalities since at this time the Mpesa API does not support the ability to read data from Customer to Customer (C2C)though this is a future possiblity. 
