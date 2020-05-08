@@ -8,32 +8,32 @@ Stable tag: 0.9.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A simple Mpesa WooCommerce payment gateway that allows customers to send the shop owner the payments on mobile phone number. Its useful for those vendors without the Safaricom Paybill or Till Number. 
+A simple Mpesa WooCommerce payment gateway that allows customers to send the shop owner the payments on the mobile phone number. It's useful for those vendors without the Safaricom Paybill or Till Number. 
 
 == Description ==
 
-Most WooCommerce users who want to recieve payment via Mpesa do not have the PayBill or Till number. This plugin is designed to allow such users to recieve  payment from customers who want to send the payment to the business or personal phone number. The checkout provides the three important fields (customer name, customer mobile number 
+Most WooCommerce users who want to receive payment via Mpesa do not have the PayBill or Till number. This plugin is designed to allow such users to receive  payment from customers who want to send the payment to the business or personal phone number. The checkout provides the three important fields (customer name, customer mobile number 
 and the Mpesa transaction code ) for confirmation of the payment.
 
-*Note: This plugin does not have the API verification capabalities since at this time the Mpesa Daraja API does not support the ability to read data from Customer to Customer (C2C) though this is a future possiblity. 
+*Note: This plugin does not have the API verification capabilities at this time the Mpesa Daraja API does not support the ability to read data from Customer to Customer (C2C) though this is a future possibility. 
 
 == Installation ==
 
-This are the instructions on how to install the plugin and get it working.
+Instructions on how to install the plugin and get it working:
 
 1. Upload `woo-send-to-mpesa-payment.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Go to the WooCommerce Settings > Payments tab and set the default values for your Mpesa number and the name that customers see on the transation. 
+1. Go to the WooCommerce Settings > Payments tab and set the default values for your Mpesa number and the name that customers see on the transaction. 
 
 == Frequently Asked Questions ==
 
-= Does this plugin work with WooCommerce only ?  =
+= Does this plugin work with WooCommerce only?  =
 
  Yes, this is a custom WooCommerce payment gateway that will not work without WooCommerce. 
  
-= How do you change the phone number displayed on checkout form ?  =
+= How do you change the phone number displayed on the checkout form ?  =
 
- You can change the phone number displayed on checkout from by editing Mpesa Recieptient Number inthe settings 
+ You can change the phone number displayed on checkout from by editing Mpesa Recipient Number in the settings 
 
 = Does it support Mpesa Till and Paybill API ? =
 
@@ -51,9 +51,7 @@ This plugin does not have any relation with WooCommerce or M-PESA trademarks or 
 6. Frontend illustration of payment gateway
 7. Order page with the payment details from Mpesa Transaction. 
 
-
 == Changelog ==
-
 = 1.0.0 =
-Intial release 
+Initial release
 
