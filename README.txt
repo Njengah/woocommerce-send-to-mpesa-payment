@@ -37,7 +37,7 @@ Instructions on how to install the plugin and get it working:
 
 = Does it support Mpesa Till and Paybill API ? =
 
- No, this a plugin for direct payments by sending money from one customer number to the shop owner number. 
+ No, this is a plugin for direct payments by sending money from one customer number to the store owner number or business phone number. 
 
 == Disclaimer ==
 This plugin does not have any relation with WooCommerce or M-PESA trademarks or brands. It is provided for the sole purpose of connecting WooCommerce to the Mpesa payment.  
