@@ -22,10 +22,10 @@ function is_mpesa_phone_number($mpesa_phone_number)
     if (empty($mpesa_phone_number)) {
         return false;
     }
-    if (strlen(trim($mpesa_phone_number)) > 10) {
+    if (strlen(trim($mpesa_phone_number)) > 15) {
         return false;
     }
-    if (!preg_match('/^[0-9-+]$/', $mpesa_phone_number)) {
+    if (!preg_match('/^[0-9 ]*$/', $mpesa_phone_number)) {
         return false;
     }
     return true;
@@ -50,11 +50,12 @@ function is_mpesa_transaction_code($mpesa_transaction_code)
     if (empty($mpesa_transaction_code)) {
         return false;
     }
-    if (!preg_match('/[^a-zA-Z0-9]/', $mpesa_transaction_code)) {
+    if (!preg_match('/^[a-zA-Z0-9]*$/', $mpesa_transaction_code)) {
         return false;
     }
     return true;
 }
+
 
 /**
  *  Validate the Send to Mpesa Payment Gateway Fields 
@@ -71,7 +72,7 @@ function process_send_to_mpesa_payment()
     // Validate Mpesa full name  
     if (!isset($_POST['mpesa_name']) || empty($_POST['mpesa_name'])){
 
-       wc_add_notice('Please add your Mpesa name', 'error');
+       wc_add_notice('Please add your Mpesa payment name', 'error');
 
     }elseif (!is_mpesa_full_name($_POST['mpesa_name'])){
 
@@ -82,21 +83,21 @@ function process_send_to_mpesa_payment()
     
     if (!isset($_POST['mobile']) || empty($_POST['mobile'])){
     
-        wc_add_notice('Please add your mobile number', 'error');
+        wc_add_notice('Please add your Mpesa payment mobile number', 'error');
 
     }elseif (!is_mpesa_phone_number($_POST['mobile'])){
 
-        wc_add_notice('Please add the mpesa number you paid with example 0722 XXX XXX without spaces', 'error');
+        wc_add_notice('Please add the mpesa number you paid with for example 0722 XXX XXX without spaces', 'error');
     }
 
    // Validate Mpesa transaction code 
 
     if (!isset($_POST['transaction']) || empty($_POST['transaction'])){
-        wc_add_notice('Please add your Mpesa transaction code', 'error');
+        wc_add_notice('Please add your Mpesa payment transaction code', 'error');
 	
     }elseif (!is_mpesa_transaction_code($_POST['transaction'])){
 
-        wc_add_notice('Please add the mpesa transaction code that you recieved from this payment without spaces', 'error');
+        wc_add_notice('Please add mpesa transaction code that you have received from this payment without spaces, example 0PTU6SSRY3', 'error');
     }
 
 }
