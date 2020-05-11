@@ -147,9 +147,14 @@ function send_to_mpesa_checkout_field_display_admin_order_meta($order)
     $mobile       =  get_post_meta($order->id, 'mobile', true);
     $transaction  =  get_post_meta($order->id, 'transaction', true);
 
-    echo '<p><strong>' . __('Mpesa Name') . ':</strong> ' . $mpesa_name . '</p>';
-    echo '<p><strong>' . __('Mobile Number') . ':</strong> ' . $mobile . '</p>';
-    echo '<p><strong>' . __('Mpesa Transaction Code') . ':</strong> ' . $transaction . '</p>';
+    if (!empty($mpesa_name))
+         echo '<p><strong>' . __('Mpesa Name') . ':</strong> ' . $mpesa_name . '</p>';
+
+    if (!empty($mobile))
+        echo '<p><strong>' . __('Mobile Number') . ':</strong> ' . $mobile . '</p>';
+
+    if (!empty($transaction))
+        echo '<p><strong>' . __('Mpesa Transaction Code') . ':</strong> ' . $transaction . '</p>';
 }
 
 /** 
