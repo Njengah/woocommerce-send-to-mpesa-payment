@@ -15,7 +15,7 @@ if ($description = $this->get_description()) {
     echo wpautop(wptexturize($description));
 }
 if (isset($this->mpesa_name)) {
-    echo  wpautop(wptexturize("Mpesa Recipient Name : " . $this->mpesa_name));
+    _e(' Mpesa Recipient Name :' . $this->mpesa_name, $this->domain);
 }
 
 ?>
@@ -27,7 +27,7 @@ if (isset($this->mpesa_name)) {
     <p class="form-row form-row-wide">
 
         <p class="send-mpesa-confirmation-title">
-                Confirm Mpesa Payment Details 
+                <?php _e('Confirm Mpesa Payment Details ', $this->domain); ?> 
         </p>
 
         <p class="form-row form-row-wide">
