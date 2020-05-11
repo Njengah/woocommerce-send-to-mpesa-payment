@@ -11,6 +11,7 @@ function woo_send_mpesa_payment_styles_scripts() {
     wp_enqueue_script("woo-send-mpesa-payment_scripts", plugin_dir_url( __DIR__ ). '/assets/js/scripts.js', array('jquery'), false, false );
 
 }
+
 /**
  *  Validation functions (Mpesa full name, mpesa number and mpesa transaction code )
  */
@@ -74,7 +75,7 @@ function process_send_to_mpesa_payment()
 
     }elseif (!is_mpesa_full_name($_POST['mpesa_name'])){
 
-        wc_add_notice('Please add the full name as it appears in your Mpesa transaction', 'error');
+        wc_add_notice('Please add the full name as it appears in your Mpesa transaction, spaces are allowed', 'error');
     }
 
     // Validate Mpesa number 
